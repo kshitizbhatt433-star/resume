@@ -568,161 +568,83 @@ body {
     font-weight: 500;
 }
 
-/* Skills Section - Modern Grouped Design */
-.skills-modern-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-xl);
-}
-
-/* Education Section */
-.education-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-3xl);
-}
-
-.education-card {
-    padding: var(--spacing-xl);
-    border-radius: var(--radius-lg);
-    display: flex;
-    gap: var(--spacing-lg);
-    transition: all 0.3s ease;
-}
-
-.education-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
-}
-
-.education-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: white;
-}
-
-.education-content {
-    flex: 1;
-}
-
-.education-year {
-    display: inline-block;
-    padding: 6px 14px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--primary);
-    margin-bottom: var(--spacing-sm);
-}
-
-.education-card h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-xs);
-}
-
-.education-card h4 {
-    font-size: 1.0625rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-xs);
-}
-
-.education-location {
-    font-size: 0.9375rem;
-    color: var(--text-tertiary);
-    margin-bottom: var(--spacing-xs);
-}
-
-.education-status {
-    font-size: 0.9375rem;
-    color: var(--text-secondary);
-    font-style: italic;
-}
-
-.education-grade {
-    margin-top: var(--spacing-sm);
-}
-
-.grade-badge {
-    display: inline-block;
-    padding: 8px 16px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    border-radius: 50px;
-    font-size: 0.9375rem;
-    font-weight: 600;
-}
-
-/* Achievements Section */
-.achievements-section {
-    margin-top: var(--spacing-3xl);
-    padding: var(--spacing-xl);
-    background: var(--bg-secondary);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-color);
-}
-
-.achievements-title {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-lg);
-}
-
-.achievements-title svg {
-    color: var(--primary);
-}
-
-.achievements-list {
+/* Education Section - Matching Skills Design */
+.education-details {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
+    gap: 12px;
 }
 
-.achievement-item {
+.education-info-row {
     display: flex;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.education-info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-value {
+    font-weight: 500;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.status-badge {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.grade-badge-green {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.achievement-card {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+}
+
+.achievement-content {
+    margin-top: var(--spacing-md);
+}
+
+.achievement-box {
+    padding: var(--spacing-md);
     background: var(--bg-primary);
     border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    border-left: 4px solid var(--primary);
 }
 
-.achievement-item:hover {
-    border-color: var(--primary);
-    transform: translateX(8px);
-}
-
-.achievement-icon {
-    font-size: 2rem;
-    flex-shrink: 0;
-}
-
-.achievement-content h4 {
+.achievement-title {
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
 }
 
-.achievement-content p {
+.achievement-desc {
     color: var(--text-secondary);
     line-height: 1.6;
+    font-size: 0.9375rem;
 }
 
 /* Skills Section - Modern Grouped Design */
@@ -1185,19 +1107,14 @@ textarea.form-input {
         gap: var(--spacing-lg);
     }
     
-    .education-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
+    .education-info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
     }
     
-    .education-card {
-        flex-direction: column;
-        padding: var(--spacing-lg);
-    }
-    
-    .achievement-item {
-        flex-direction: column;
-        text-align: center;
+    .info-value {
+        text-align: left;
     }
 }
 
