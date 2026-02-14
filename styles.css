@@ -1,38 +1,26 @@
-/* ===========================================
-   PROFESSIONAL PORTFOLIO CSS
-   =========================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* CSS Variables */
 :root {
     --primary: #6366f1;
     --primary-dark: #4f46e5;
     --secondary: #8b5cf6;
     --accent: #06b6d4;
-    
     --text-primary: #0f172a;
     --text-secondary: #475569;
     --text-tertiary: #64748b;
-    
     --bg-primary: #ffffff;
     --bg-secondary: #f8fafc;
     --bg-tertiary: #f1f5f9;
-    
     --border-color: #e2e8f0;
     --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.18);
-    
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
-    --radius-xl: 24px;
-    
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 1.5rem;
@@ -46,17 +34,14 @@
     --text-primary: #f1f5f9;
     --text-secondary: #cbd5e1;
     --text-tertiary: #94a3b8;
-    
     --bg-primary: #0f172a;
     --bg-secondary: #1e293b;
     --bg-tertiary: #334155;
-    
     --border-color: #334155;
     --glass-bg: rgba(15, 23, 42, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-/* Reset & Base */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -75,11 +60,9 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 3D Background */
 #bg-canvas {
     position: fixed;
     top: 0;
@@ -90,14 +73,13 @@ body {
     opacity: 0.6;
 }
 
-/* Container */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-lg);
 }
 
-/* Navigation */
+/* Navbar */
 .navbar {
     position: fixed;
     top: 0;
@@ -261,7 +243,6 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
 }
-
 /* Hero Section */
 .hero {
     min-height: 100vh;
@@ -330,7 +311,6 @@ body {
     flex-wrap: wrap;
 }
 
-/* Buttons */
 .btn {
     padding: 14px 32px;
     border-radius: var(--radius-md);
@@ -406,12 +386,6 @@ body {
     transform: translateY(-2px);
 }
 
-.btn-full {
-    width: 100%;
-    justify-content: center;
-}
-
-/* Scroll Indicator */
 .scroll-indicator {
     position: absolute;
     bottom: var(--spacing-xl);
@@ -436,7 +410,17 @@ body {
     50% { opacity: 1; transform: translateY(20px); }
 }
 
-/* Section Styles */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .section {
     padding: var(--spacing-3xl) var(--spacing-lg);
     position: relative;
@@ -481,7 +465,6 @@ body {
     line-height: 1.7;
 }
 
-/* Glassmorphism */
 .glass {
     background: var(--glass-bg);
     backdrop-filter: blur(20px) saturate(180%);
@@ -568,86 +551,7 @@ body {
     font-weight: 500;
 }
 
-/* Education Section - Matching Skills Design */
-.education-details {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.education-info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.education-info-row:last-child {
-    border-bottom: none;
-}
-
-.info-label {
-    font-weight: 600;
-    color: var(--text-tertiary);
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.info-value {
-    font-weight: 500;
-    color: var(--text-primary);
-    text-align: right;
-}
-
-.status-badge {
-    padding: 6px 14px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    border-radius: 50px;
-    font-size: 0.875rem;
-    font-weight: 600;
-}
-
-.grade-badge-green {
-    padding: 6px 14px;
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    border-radius: 50px;
-    font-size: 0.875rem;
-    font-weight: 600;
-}
-
-.achievement-card {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
-}
-
-.achievement-content {
-    margin-top: var(--spacing-md);
-}
-
-.achievement-box {
-    padding: var(--spacing-md);
-    background: var(--bg-primary);
-    border-radius: var(--radius-md);
-    border-left: 4px solid var(--primary);
-}
-
-.achievement-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-sm);
-}
-
-.achievement-desc {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    font-size: 0.9375rem;
-}
-
-/* Skills Section - Modern Grouped Design */
+/* Skills Section */
 .skills-modern-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -655,8 +559,8 @@ body {
 }
 
 .skill-group {
-    background: var(--bg-primary);
     padding: var(--spacing-xl);
+    background: var(--bg-primary);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
     transition: all 0.3s ease;
@@ -717,7 +621,106 @@ body {
     transform: translateY(-2px);
 }
 
-/* Timeline */
+/* Education Section */
+.education-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.education-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.education-info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-value {
+    font-weight: 500;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.status-badge {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.grade-badge-green {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* Achievements Section */
+.achievement-block {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.achievement-item-large {
+    padding: var(--spacing-2xl);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    display: flex;
+    gap: var(--spacing-xl);
+    align-items: start;
+    transition: all 0.3s ease;
+}
+
+.achievement-item-large:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-5px);
+}
+
+.achievement-icon-large {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.achievement-text h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.achievement-text p {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+/* Timeline / Projects */
 .timeline {
     max-width: 900px;
     margin: 0 auto;
@@ -928,7 +931,6 @@ body {
     transform: translateY(-4px);
 }
 
-/* Contact Form */
 .contact-form {
     padding: var(--spacing-xl);
     border-radius: var(--radius-lg);
@@ -971,7 +973,11 @@ textarea.form-input {
     min-height: 120px;
 }
 
-/* Footer */
+.btn-full {
+    width: 100%;
+    justify-content: center;
+}
+
 .footer {
     padding: var(--spacing-xl) var(--spacing-lg);
     text-align: center;
@@ -981,18 +987,6 @@ textarea.form-input {
 .footer p {
     color: var(--text-secondary);
     font-size: 0.95rem;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .fade-in {
@@ -1015,7 +1009,7 @@ textarea.form-input {
         padding-right: 0;
     }
     
-    .skills-grid {
+    .skills-modern-grid {
         grid-template-columns: 1fr;
     }
     
@@ -1115,6 +1109,11 @@ textarea.form-input {
     
     .info-value {
         text-align: left;
+    }
+    
+    .achievement-item-large {
+        flex-direction: column;
+        text-align: center;
     }
 }
 

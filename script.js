@@ -142,8 +142,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================
     // PDF DOWNLOAD FUNCTIONALITY
     // ============================================
-    // Download button now links directly to Kshitiz_Bhatt_CV.pdf
-    // No JavaScript needed - HTML handles it with download attribute
+    const downloadCV = document.getElementById('downloadCV');
+
+    if (downloadCV) {
+        downloadCV.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Option 1: Link to a PDF file (recommended)
+            // Uncomment and add your PDF file path:
+            // window.open('path/to/your/resume.pdf', '_blank');
+            
+            // Option 2: Generate PDF from current page using print dialog
+            window.print();
+            
+            /* 
+            TO ADD YOUR PDF:
+            1. Create a PDF version of your resume
+            2. Put it in the same folder as index.html
+            3. Name it something like "Kshitiz_Bhatt_Resume.pdf"
+            4. Uncomment the window.open line above and update the path
+            5. Comment out the window.print() line
+            */
+        });
+    }
 
     // ============================================
     // DARK MODE TOGGLE - FIXED VERSION
