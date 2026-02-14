@@ -139,6 +139,36 @@ class ParticleBackground {
 const particleBg = new ParticleBackground();
 
 // ============================================
+// PDF DOWNLOAD FUNCTIONALITY
+// ============================================
+const downloadCV = document.getElementById('downloadCV');
+
+if (downloadCV) {
+    downloadCV.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Option 1: Link to a PDF file (recommended)
+        // Uncomment and add your PDF file path:
+        // window.open('path/to/your/resume.pdf', '_blank');
+        
+        // Option 2: Generate PDF from current page using print dialog
+        window.print();
+        
+        // Option 3: Use a library like jsPDF or html2pdf
+        // This would require adding the library to your project
+        
+        /* 
+        TO ADD YOUR PDF:
+        1. Create a PDF version of your resume
+        2. Put it in the same folder as index.html
+        3. Name it something like "Kshitiz_Bhatt_Resume.pdf"
+        4. Uncomment line 117 and update the path
+        5. Comment out the window.print() line
+        */
+    });
+}
+
+// ============================================
 // DARK MODE TOGGLE
 // ============================================
 const themeToggle = document.getElementById('themeToggle');
@@ -197,12 +227,7 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('fade-in');
             
-            // Skill bars animation
-            if (entry.target.classList.contains('skill-category')) {
-                animateSkillBars(entry.target);
-            }
-            
-            // Counter animation
+            // Counter animation for stats
             const statNumbers = entry.target.querySelectorAll('.stat-number');
             statNumbers.forEach(stat => {
                 if (!stat.classList.contains('counted')) {
@@ -215,23 +240,9 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe elements
-document.querySelectorAll('.section, .skill-category, .timeline-item, .stat-card').forEach(el => {
+document.querySelectorAll('.section, .skill-group, .timeline-item, .stat-card').forEach(el => {
     observer.observe(el);
 });
-
-// ============================================
-// SKILL BARS ANIMATION
-// ============================================
-function animateSkillBars(skillCategory) {
-    const progressBars = skillCategory.querySelectorAll('.skill-progress');
-    
-    progressBars.forEach((bar, index) => {
-        const targetWidth = bar.getAttribute('data-progress');
-        setTimeout(() => {
-            bar.style.width = targetWidth + '%';
-        }, index * 100);
-    });
-}
 
 // ============================================
 // COUNTER ANIMATION
