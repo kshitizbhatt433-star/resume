@@ -4,6 +4,8 @@
 class ParticleBackground {
     constructor() {
         this.canvas = document.getElementById('bg-canvas');
+        if (!this.canvas) return;
+        
         this.ctx = this.canvas.getContext('2d');
         this.particles = [];
         this.particleCount = 80;
@@ -54,7 +56,6 @@ class ParticleBackground {
             : `rgba(99, 102, 241, ${opacity * 0.4})`;
         this.ctx.fill();
         
-        // Add glow
         const gradient = this.ctx.createRadialGradient(x, y, 0, x, y, size * 3);
         gradient.addColorStop(0, `rgba(99, 102, 241, ${opacity * 0.2})`);
         gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
@@ -67,7 +68,6 @@ class ParticleBackground {
         particle.y += particle.vy;
         particle.z -= particle.vz;
         
-        // Mouse interaction
         const dx = this.mouse.x - particle.x;
         const dy = this.mouse.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -77,7 +77,6 @@ class ParticleBackground {
             particle.y -= dy * 0.01;
         }
         
-        // Reset particle
         if (particle.z < 0) {
             particle.z = 1000;
             particle.x = Math.random() * this.canvas.width;
@@ -135,186 +134,157 @@ class ParticleBackground {
     }
 }
 
-// Initialize
-const particleBg = new ParticleBackground();
+// Wait for DOM to be fully loaded before initializing
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize particle background
+    const particleBg = new ParticleBackground();
 
-// ============================================
-// PDF DOWNLOAD FUNCTIONALITY
-// ============================================
-const downloadCV = document.getElementById('downloadCV');
+    // ============================================
+    // PDF DOWNLOAD FUNCTIONALITY
+    // ============================================
+    const downloadCV = document.getElementById('downloadCV');
 
-if (downloadCV) {
-    downloadCV.addEventListener('click', (e) => {
-        e.preventDefault();
-        
-        // Option 1: Link to a PDF file (recommended)
-        // Uncomment and add your PDF file path:
-        // window.open('path/to/your/resume.pdf', '_blank');
-        
-        // Option 2: Generate PDF from current page using print dialog
-        window.print();
-        
-        // Option 3: Use a library like jsPDF or html2pdf
-        // This would require adding the library to your project
-        
-        /* 
-        TO ADD YOUR PDF:
-        1. Create a PDF version of your resume
-        2. Put it in the same folder as index.html
-        3. Name it something like "Kshitiz_Bhatt_Resume.pdf"
-        4. Uncomment line 117 and update the path
-        5. Comment out the window.print() line
-        */
-    });
-}
-
-// ============================================
-// DARK MODE TOGGLE
-// ============================================
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-
-// Load saved theme or default to light
-const currentTheme = localStorage.getItem('theme') || 'light';
-html.setAttribute('data-theme', currentTheme);
-
-// Toggle theme on click
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const theme = html.getAttribute('data-theme');
-        const newTheme = theme === 'light' ? 'dark' : 'light';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-    });
-}
-
-// ============================================
-// NAVBAR SCROLL
-// ============================================
-const navbar = document.querySelector('.navbar');
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
-
-// ============================================
-// SMOOTH SCROLLING
-// ============================================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    });
-});
-
-// ============================================
-// INTERSECTION OBSERVER FOR ANIMATIONS
-// ============================================
-const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
+    if (downloadCV) {
+        downloadCV.addEventListener('click', function(e) {
+            e.preventDefault();
             
-            // Counter animation for stats
-            const statNumbers = entry.target.querySelectorAll('.stat-number');
-            statNumbers.forEach(stat => {
-                if (!stat.classList.contains('counted')) {
-                    stat.classList.add('counted');
-                    animateCounter(stat);
-                }
-            });
-        }
-    });
-}, observerOptions);
+            // Option 1: Link to a PDF file (recommended)
+            // Uncomment and add your PDF file path:
+            // window.open('path/to/your/resume.pdf', '_blank');
+            
+            // Option 2: Generate PDF from current page using print dialog
+            window.print();
+            
+            /* 
+            TO ADD YOUR PDF:
+            1. Create a PDF version of your resume
+            2. Put it in the same folder as index.html
+            3. Name it something like "Kshitiz_Bhatt_Resume.pdf"
+            4. Uncomment the window.open line above and update the path
+            5. Comment out the window.print() line
+            */
+        });
+    }
 
-// Observe elements
-document.querySelectorAll('.section, .skill-group, .timeline-item, .stat-card').forEach(el => {
-    observer.observe(el);
-});
+    // ============================================
+    // DARK MODE TOGGLE - FIXED VERSION
+    // ============================================
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
 
-// ============================================
-// COUNTER ANIMATION
-// ============================================
-function animateCounter(element) {
-    const target = parseInt(element.getAttribute('data-target'));
-    const duration = 2000;
-    const increment = target / (duration / 16);
-    let current = 0;
-    
-    const updateCounter = () => {
-        current += increment;
-        if (current < target) {
-            element.textContent = Math.floor(current);
-            requestAnimationFrame(updateCounter);
-        } else {
-            element.textContent = target;
-        }
-    };
-    
-    updateCounter();
-}
+    // Load saved theme or default to light
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    htmlElement.setAttribute('data-theme', currentTheme);
 
-// ============================================
-// CONTACT FORM
-// ============================================
-const contactForm = document.querySelector('.contact-form');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(contactForm);
-        const name = formData.get('name') || document.querySelector('.contact-form input[type="text"]').value;
-        const email = formData.get('email') || document.querySelector('.contact-form input[type="email"]').value;
-        const subject = formData.get('subject') || document.querySelectorAll('.contact-form input[type="text"]')[1]?.value;
-        const message = formData.get('message') || document.querySelector('.contact-form textarea').value;
-        
-        // Show success message
-        alert(`Thank you for your message!\n\nCurrently, this form stores data locally. To receive emails:\n\n1. Use FormSubmit.co (free)\n2. Use EmailJS (free)\n3. Set up your own backend\n\nYour message:\nName: ${name}\nEmail: ${email}\nSubject: ${subject}`);
-        
-        // Log to console for now (you can see it in browser dev tools)
-        console.log('Form Submission:', {
-            name: name,
-            email: email,
-            subject: subject,
-            message: message,
-            timestamp: new Date().toISOString()
+    // Add click event listener
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            const theme = htmlElement.getAttribute('data-theme');
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            console.log('Theme switched to:', newTheme);
         });
         
-        // Reset form
-        contactForm.reset();
-        
-        /* 
-        TO RECEIVE EMAILS - Choose one option:
-        
-        OPTION 1: FormSubmit.co (EASIEST - No signup needed!)
-        - Change form action to: action="https://formsubmit.co/kshitizbhatt433@gmail.com"
-        - Add method="POST" to form tag
-        - Remove the e.preventDefault() line above
-        - That's it! You'll receive emails directly
-        
-        OPTION 2: EmailJS (Free, more control)
-        - Sign up at emailjs.com
-        - Get your public key
-        - Use their JavaScript SDK
-        
-        OPTION 3: Your own backend
-        - Create an API endpoint (Node.js/Python/PHP)
-        - Send form data there
-        - Backend sends you email
-        */
+        console.log('Dark mode toggle initialized successfully');
+    } else {
+        console.error('Theme toggle button not found! Make sure your HTML has an element with id="themeToggle"');
+    }
+
+    // ============================================
+    // NAVBAR SCROLL EFFECT
+    // ============================================
+    const navbar = document.querySelector('.navbar');
+
+    if (navbar) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
+
+    // ============================================
+    // SMOOTH SCROLLING
+    // ============================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
     });
-}
+
+    // ============================================
+    // INTERSECTION OBSERVER FOR ANIMATIONS
+    // ============================================
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                
+                // Counter animation for stats
+                const statNumbers = entry.target.querySelectorAll('.stat-number');
+                statNumbers.forEach(stat => {
+                    if (!stat.classList.contains('counted')) {
+                        stat.classList.add('counted');
+                        animateCounter(stat);
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements
+    document.querySelectorAll('.section, .skill-group, .timeline-item, .stat-card').forEach(el => {
+        observer.observe(el);
+    });
+
+    // ============================================
+    // COUNTER ANIMATION
+    // ============================================
+    function animateCounter(element) {
+        const target = parseInt(element.getAttribute('data-target'));
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                element.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                element.textContent = target;
+            }
+        };
+        
+        updateCounter();
+    }
+
+    // ============================================
+    // CONTACT FORM
+    // ============================================
+    const contactForm = document.querySelector('.contact-form');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            // FormSubmit will handle the submission
+            // The form will redirect after submission
+            console.log('Form submitted');
+        });
+    }
+
+    console.log('All JavaScript initialized successfully!');
+});

@@ -33,7 +33,7 @@
                     </svg>
                     <span>Download CV</span>
                 </a>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -115,7 +115,7 @@
                 </div>
                 <div class="about-stats">
                     <div class="stat-card glass">
-                        <div class="stat-number" data-target="10">0</div>
+                        <div class="stat-number" data-target="2">0</div>
                         <div class="stat-label">Projects Built</div>
                     </div>
                     <div class="stat-card glass">
@@ -123,8 +123,8 @@
                         <div class="stat-label">Years Learning</div>
                     </div>
                     <div class="stat-card glass">
-                        <div class="stat-number" data-target="7">0</div>
-                        <div class="stat-label">Technologies</div>
+                        <div class="stat-number" data-target="10">0</div>
+                        <div class="stat-label">Skills Mastered</div>
                     </div>
                 </div>
             </div>
@@ -378,4 +378,22 @@
                     </button>
                 </form>
             </div>
-        </div
+        </div    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Kshitiz Bhatt. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Dark Mode Quick Loader -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
