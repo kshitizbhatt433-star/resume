@@ -1,5 +1,5 @@
 // ============================================
-// 3D PARTICLE BACKGROUND ANIMATION
+// 3D PARTICLE BACKGROUND
 // ============================================
 class ParticleBackground {
     constructor() {
@@ -55,27 +55,12 @@ class ParticleBackground {
             ? `rgba(99, 102, 241, ${opacity * 0.6})` 
             : `rgba(99, 102, 241, ${opacity * 0.4})`;
         this.ctx.fill();
-        
-        const gradient = this.ctx.createRadialGradient(x, y, 0, x, y, size * 3);
-        gradient.addColorStop(0, `rgba(99, 102, 241, ${opacity * 0.2})`);
-        gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
-        this.ctx.fillStyle = gradient;
-        this.ctx.fillRect(x - size * 3, y - size * 3, size * 6, size * 6);
     }
     
     updateParticle(particle) {
         particle.x += particle.vx;
         particle.y += particle.vy;
         particle.z -= particle.vz;
-        
-        const dx = this.mouse.x - particle.x;
-        const dy = this.mouse.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 100) {
-            particle.x -= dx * 0.01;
-            particle.y -= dy * 0.01;
-        }
         
         if (particle.z < 0) {
             particle.z = 1000;
@@ -87,30 +72,6 @@ class ParticleBackground {
         if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
     }
     
-    drawConnections() {
-        for (let i = 0; i < this.particles.length; i++) {
-            for (let j = i + 1; j < this.particles.length; j++) {
-                const dx = this.particles[i].x - this.particles[j].x;
-                const dy = this.particles[i].y - this.particles[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < 120) {
-                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-                    const opacity = (120 - distance) / 120 * 0.15;
-                    
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
-                    this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
-                    this.ctx.strokeStyle = isDark 
-                        ? `rgba(99, 102, 241, ${opacity})` 
-                        : `rgba(99, 102, 241, ${opacity * 0.6})`;
-                    this.ctx.lineWidth = 1;
-                    this.ctx.stroke();
-                }
-            }
-        }
-    }
-    
     animate() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
@@ -119,85 +80,52 @@ class ParticleBackground {
             this.drawParticle(particle);
         });
         
-        this.drawConnections();
-        
         requestAnimationFrame(() => this.animate());
     }
     
     addEventListeners() {
         window.addEventListener('resize', () => this.resize());
-        
-        window.addEventListener('mousemove', (e) => {
-            this.mouse.x = e.clientX;
-            this.mouse.y = e.clientY;
-        });
     }
 }
 
-// Wait for DOM to be fully loaded before initializing
+// ============================================
+// INITIALIZE ON PAGE LOAD
+// ============================================
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded, initializing...');
+    
     // Initialize particle background
-    const particleBg = new ParticleBackground();
-
+    new ParticleBackground();
+    console.log('3D background initialized');
+    
     // ============================================
-    // PDF DOWNLOAD FUNCTIONALITY
-    // ============================================
-    const downloadCV = document.getElementById('downloadCV');
-
-    if (downloadCV) {
-        downloadCV.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Option 1: Link to a PDF file (recommended)
-            // Uncomment and add your PDF file path:
-            // window.open('path/to/your/resume.pdf', '_blank');
-            
-            // Option 2: Generate PDF from current page using print dialog
-            window.print();
-            
-            /* 
-            TO ADD YOUR PDF:
-            1. Create a PDF version of your resume
-            2. Put it in the same folder as index.html
-            3. Name it something like "Kshitiz_Bhatt_Resume.pdf"
-            4. Uncomment the window.open line above and update the path
-            5. Comment out the window.print() line
-            */
-        });
-    }
-
-    // ============================================
-    // DARK MODE TOGGLE - FIXED VERSION
+    // DARK MODE TOGGLE
     // ============================================
     const themeToggle = document.getElementById('themeToggle');
     const htmlElement = document.documentElement;
-
-    // Load saved theme or default to light
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    htmlElement.setAttribute('data-theme', currentTheme);
-
-    // Add click event listener
+    
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    htmlElement.setAttribute('data-theme', savedTheme);
+    console.log('Theme loaded:', savedTheme);
+    
+    // Toggle on click
     if (themeToggle) {
         themeToggle.addEventListener('click', function() {
-            const theme = htmlElement.getAttribute('data-theme');
-            const newTheme = theme === 'light' ? 'dark' : 'light';
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            
-            console.log('Theme switched to:', newTheme);
+            console.log('Theme changed to:', newTheme);
         });
-        
-        console.log('Dark mode toggle initialized successfully');
-    } else {
-        console.error('Theme toggle button not found! Make sure your HTML has an element with id="themeToggle"');
+        console.log('Dark mode toggle ready');
     }
-
+    
     // ============================================
-    // NAVBAR SCROLL EFFECT
+    // NAVBAR SCROLL
     // ============================================
     const navbar = document.querySelector('.navbar');
-
     if (navbar) {
         window.addEventListener('scroll', function() {
             if (window.scrollY > 50) {
@@ -207,9 +135,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
+    
     // ============================================
-    // SMOOTH SCROLLING
+    // SMOOTH SCROLL
     // ============================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -220,37 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    // ============================================
-    // INTERSECTION OBSERVER FOR ANIMATIONS
-    // ============================================
-    const observerOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                
-                // Counter animation for stats
-                const statNumbers = entry.target.querySelectorAll('.stat-number');
-                statNumbers.forEach(stat => {
-                    if (!stat.classList.contains('counted')) {
-                        stat.classList.add('counted');
-                        animateCounter(stat);
-                    }
-                });
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements
-    document.querySelectorAll('.section, .skill-group, .timeline-item, .stat-card').forEach(el => {
-        observer.observe(el);
-    });
-
+    
     // ============================================
     // COUNTER ANIMATION
     // ============================================
@@ -272,19 +170,36 @@ document.addEventListener('DOMContentLoaded', function() {
         
         updateCounter();
     }
-
+    
     // ============================================
-    // CONTACT FORM
+    // SCROLL ANIMATIONS
     // ============================================
-    const contactForm = document.querySelector('.contact-form');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            // FormSubmit will handle the submission
-            // The form will redirect after submission
-            console.log('Form submitted');
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                
+                // Animate stat counters
+                const statNumbers = entry.target.querySelectorAll('.stat-number');
+                statNumbers.forEach(stat => {
+                    if (!stat.classList.contains('counted')) {
+                        stat.classList.add('counted');
+                        animateCounter(stat);
+                    }
+                });
+            }
         });
-    }
-
-    console.log('All JavaScript initialized successfully!');
+    }, observerOptions);
+    
+    // Observe elements
+    document.querySelectorAll('.section, .skill-group, .timeline-item, .stat-card').forEach(el => {
+        observer.observe(el);
+    });
+    
+    console.log('All features initialized successfully!');
 });

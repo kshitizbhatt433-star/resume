@@ -79,7 +79,6 @@ body {
     padding: 0 var(--spacing-lg);
 }
 
-/* Navbar */
 .navbar {
     position: fixed;
     top: 0;
@@ -243,7 +242,7 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
 }
-/* Hero Section */
+
 .hero {
     min-height: 100vh;
     display: flex;
@@ -357,33 +356,17 @@ body {
     background: transparent;
     color: var(--text-primary);
     border: 2px solid var(--border-color);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-secondary::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: var(--primary);
-    transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-}
-
-.btn-secondary:hover::before {
-    width: 300px;
-    height: 300px;
 }
 
 .btn-secondary:hover {
-    color: white;
+    background: var(--bg-secondary);
     border-color: var(--primary);
     transform: translateY(-2px);
+}
+
+.btn-full {
+    width: 100%;
+    justify-content: center;
 }
 
 .scroll-indicator {
@@ -473,7 +456,6 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
-/* About Section */
 .about-content {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
@@ -551,7 +533,6 @@ body {
     font-weight: 500;
 }
 
-/* Skills Section */
 .skills-modern-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -621,7 +602,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Education Section */
 .education-details {
     display: flex;
     flex-direction: column;
@@ -672,7 +652,6 @@ body {
     font-weight: 600;
 }
 
-/* Achievements Section */
 .achievement-block {
     max-width: 900px;
     margin: 0 auto;
@@ -720,7 +699,6 @@ body {
     color: var(--text-secondary);
 }
 
-/* Timeline / Projects */
 .timeline {
     max-width: 900px;
     margin: 0 auto;
@@ -858,7 +836,6 @@ body {
     color: var(--text-secondary);
 }
 
-/* Contact Section */
 .contact-wrapper {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -973,11 +950,6 @@ textarea.form-input {
     min-height: 120px;
 }
 
-.btn-full {
-    width: 100%;
-    justify-content: center;
-}
-
 .footer {
     padding: var(--spacing-xl) var(--spacing-lg);
     text-align: center;
@@ -994,7 +966,6 @@ textarea.form-input {
     animation: fadeInUp 0.8s ease forwards;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     .nav-menu {
         display: none;
